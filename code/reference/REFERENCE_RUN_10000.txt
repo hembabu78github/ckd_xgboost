@@ -1,0 +1,35 @@
+TAWAM JOURNAL REANALYSIS - RESULTS SUMMARY
+============================================================
+Cohort: n=485, events=56, censored=429
+Stored fold event counts: [11, 11, 11, 11, 12]
+
+Five-fold Harrell C (mean +/- SD) and pooled OOF C:
+  Cox-5: fold mean=0.796281, SD=0.029493; pooled OOF=0.789452 (bootstrap 95% CI 0.734897-0.838321)
+  XGB-Cox-5: fold mean=0.721134, SD=0.046909; pooled OOF=0.709822 (bootstrap 95% CI 0.647125-0.769871)
+  XGB-Cox-11: fold mean=0.851740, SD=0.063494; pooled OOF=0.840943 (bootstrap 95% CI 0.795160-0.882111)
+
+Paired pooled-OOF C-index differences:
+  XGB-Cox-11 - Cox-5: 0.051491 (95% CI -0.002043-0.104739)
+  XGB-Cox-5 - Cox-5: -0.079631 (95% CI -0.126725--0.032825)
+  XGB-Cox-11 - XGB-Cox-5: 0.131121 (95% CI 0.070587-0.191846)
+
+60-month descriptive calibration:
+  Cox-5: mean predicted=0.070708; KM observed=0.072314; absolute gap=0.001606
+  XGB-Cox-5: mean predicted=0.072560; KM observed=0.072314; absolute gap=0.000246
+  XGB-Cox-11: mean predicted=0.074847; KM observed=0.072314; absolute gap=0.002533
+
+Cox PH exploratory Schoenfeld-residual time-trend diagnostics:
+  Age50_64: rho=0.3579, p=0.00676596 [POTENTIAL TIME TREND]
+  Age65plus: rho=-0.2348, p=0.0815035 [no strong trend signal]
+  CHD: rho=-0.0865, p=0.526062 [no strong trend signal]
+  Diabetes: rho=0.3944, p=0.00262808 [POTENTIAL TIME TREND]
+  Smoking: rho=0.5802, p=2.77003e-06 [POTENTIAL TIME TREND]
+
+INTERPRETATION RULES:
+- XGB-Cox-11 is a post-hoc transparent reconstruction, not the missing original configuration.
+- XGB-Cox-11 is not a like-for-like comparison with Cox-5 because the predictor sets differ.
+- XGB-Cox-5 is the matched-predictor sensitivity analysis.
+- Calibration is descriptive because there are only 56 events.
+- Schoenfeld checks are exploratory per-term time-trend diagnostics, not a formal global cox.zph test.
+
+Outputs written to: /mnt/data/Tawam_XGBoost_Cox_Journal_Reanalysis_v1/results

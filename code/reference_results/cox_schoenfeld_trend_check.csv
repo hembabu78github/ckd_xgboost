@@ -1,0 +1,6 @@
+term,n_events,spearman_rho_vs_log_event_time,p_value_exploratory,note
+Age50_64,56,0.3578915035855726,0.006765957739626988,Exploratory Schoenfeld-residual time-trend diagnostic; not a formal global cox.zph test.
+Age65plus,56,-0.23481740338300736,0.08150350992083256,Exploratory Schoenfeld-residual time-trend diagnostic; not a formal global cox.zph test.
+CHD,56,-0.08651791159976709,0.5260620819381261,Exploratory Schoenfeld-residual time-trend diagnostic; not a formal global cox.zph test.
+Diabetes,56,0.3944461564482303,0.0026280825402177233,Exploratory Schoenfeld-residual time-trend diagnostic; not a formal global cox.zph test.
+Smoking,56,0.5802414337799058,2.77002662317703e-06,Exploratory Schoenfeld-residual time-trend diagnostic; not a formal global cox.zph test.

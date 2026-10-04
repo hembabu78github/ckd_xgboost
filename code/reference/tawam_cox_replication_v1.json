@@ -1,0 +1,110 @@
+{
+  "analysis": "Publication-consistent reduced Cox PH replication / method-development check",
+  "n": 485,
+  "events": 56,
+  "covariates": [
+    "Age 50\u201364 vs \u226449",
+    "Age \u226565 vs \u226449",
+    "History CHD",
+    "History diabetes",
+    "History smoking"
+  ],
+  "ties": "Efron",
+  "coefficients": [
+    {
+      "term": "Age 50\u201364 vs \u226449",
+      "log_hr": 1.6252630318052073,
+      "se": 0.6171810151767596,
+      "hr": 5.0797549985994985,
+      "ci95_low": 1.515261819313543,
+      "ci95_high": 17.029341409451277,
+      "p": 0.008454337810193722
+    },
+    {
+      "term": "Age \u226565 vs \u226449",
+      "log_hr": 1.616620599014739,
+      "se": 0.6430148524874251,
+      "hr": 5.036042719726359,
+      "ci95_low": 1.4280523003467305,
+      "ci95_high": 17.759662071725973,
+      "p": 0.011932766647560388
+    },
+    {
+      "term": "History CHD",
+      "log_hr": 1.0023430355623981,
+      "se": 0.3104134238181488,
+      "hr": 2.724658326715685,
+      "ci95_low": 1.4828007897163382,
+      "ci95_high": 5.006581496872073,
+      "p": 0.0012419858284759874
+    },
+    {
+      "term": "History diabetes",
+      "log_hr": 1.45346416682571,
+      "se": 0.3778023283510664,
+      "hr": 4.277908264259579,
+      "ci95_low": 2.040044463103593,
+      "ci95_high": 8.970637379922197,
+      "p": 0.00011949730979724771
+    },
+    {
+      "term": "History smoking",
+      "log_hr": 0.7935871064259233,
+      "se": 0.3113656983072001,
+      "hr": 2.211314436618037,
+      "ci95_low": 1.2011871239458796,
+      "ci95_high": 4.070899063196806,
+      "p": 0.010811595836031238
+    }
+  ],
+  "apparent_harrell_c": 0.7911768710570508,
+  "apparent_comparable_pairs": 22033,
+  "method_dev_cv": {
+    "scheme": "5-fold stratified by EventCKD35 x Gender; fixed seed 20260808",
+    "folds": [
+      {
+        "fold": 1,
+        "n": 97,
+        "events": 11,
+        "males": 49,
+        "harrell_c": 0.75,
+        "comparable_pairs": 870
+      },
+      {
+        "fold": 2,
+        "n": 97,
+        "events": 11,
+        "males": 49,
+        "harrell_c": 0.8030634573304157,
+        "comparable_pairs": 914
+      },
+      {
+        "fold": 3,
+        "n": 97,
+        "events": 11,
+        "males": 49,
+        "harrell_c": 0.801056338028169,
+        "comparable_pairs": 852
+      },
+      {
+        "fold": 4,
+        "n": 97,
+        "events": 11,
+        "males": 49,
+        "harrell_c": 0.7953995157384988,
+        "comparable_pairs": 826
+      },
+      {
+        "fold": 5,
+        "n": 97,
+        "events": 12,
+        "males": 50,
+        "harrell_c": 0.8318872017353579,
+        "comparable_pairs": 922
+      }
+    ],
+    "mean_harrell_c": 0.7962813025664882,
+    "sd_harrell_c": 0.029492859974012072
+  },
+  "interpretation": "Engineering/data-reproduction evidence only. This is not the final Chapter 5 target architecture result and does not replace the planned held-out longitudinal CDS robustness evaluation."
+}

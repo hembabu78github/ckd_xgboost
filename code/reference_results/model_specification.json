@@ -1,0 +1,66 @@
+{
+  "analysis_status": "post-hoc transparent journal reconstruction because original XGBoost-Cox code/output could not be recovered",
+  "cv_split": {
+    "source": "MethodDev_CV_Fold5",
+    "seed_original": 20260808,
+    "fold_sizes": [
+      97,
+      97,
+      97,
+      97,
+      97
+    ],
+    "fold_event_counts": [
+      11,
+      11,
+      11,
+      11,
+      12
+    ]
+  },
+  "cox_5_predictors": [
+    "Age50_64",
+    "Age65plus",
+    "CHD",
+    "Diabetes",
+    "Smoking"
+  ],
+  "xgb_cox_5_predictors": [
+    "Age50_64",
+    "Age65plus",
+    "CHD",
+    "Diabetes",
+    "Smoking"
+  ],
+  "xgb_cox_11_predictors": [
+    "GenderCode",
+    "AgeBaselineYears",
+    "HistoryDiabetes",
+    "HistoryCHD",
+    "HistoryVascular",
+    "HistorySmoking",
+    "HistoryHTN",
+    "HistoryDLD",
+    "HistoryObesity_Source",
+    "ACEI_ARB",
+    "eGFR_mL_min_1_73m2"
+  ],
+  "xgboost_fixed_parameters": {
+    "objective": "survival:cox",
+    "eval_metric": "cox-nloglik",
+    "n_estimators": 150,
+    "max_depth": 2,
+    "learning_rate": 0.03,
+    "subsample": 0.8,
+    "colsample_bytree": 0.8,
+    "min_child_weight": 10,
+    "reg_lambda": 5.0,
+    "reg_alpha": 0.1,
+    "random_state": 20260808,
+    "n_jobs": 1,
+    "verbosity": 0,
+    "tree_method": "hist"
+  },
+  "xgboost_selection_rule": "Fixed transparent reconstruction; no grid/random/Bayesian search and no optimization against held-out fold results.",
+  "calibration_horizon_months": 60.0
+}
