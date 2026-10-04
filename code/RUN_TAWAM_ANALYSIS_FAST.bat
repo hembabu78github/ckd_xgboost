@@ -1,11 +1,62 @@
 @echo off
 setlocal
 cd /d "%~dp0"
-if not exist .venv (
-  python -m venv .venv
+
+echo ================================================================
+echo Tawam journal reanalysis - FAST smoke test (2000 bootstrap)
+echo Requires Python 3.12 (64-bit)
+echo ================================================================
+
+py -3.12 -c "import sys; print(sys.version)" >nul 2>nul
+if errorlevel 1 (
+  echo ERROR: Python 3.12 was not found.
+  echo.
+  echo Your previous run used Python 3.14. pandas 2.2.3 has no compatible
+  echo prebuilt wheel for that environment, so pip tried to compile pandas.
+  echo Do NOT install Visual Studio just for this analysis.
+  echo.
+  echo Install 64-bit Python 3.12, then run this BAT again.
+  echo You can check installed versions with: py -0p
+  pause
+  exit /b 1
 )
-call .venv\Scripts\activate.bat
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-python run_tawam_journal_reanalysis.py --bootstrap 2000
+
+if exist .venv (
+  .venv\Scripts\python.exe -c "import sys; raise SystemExit(0 if sys.version_info[:2]==(3,12) else 1)" >nul 2>nul
+  if errorlevel 1 (
+    echo Removing old virtual environment created with a different Python version...
+    rmdir /s /q .venv
+  )
+)
+
+if not exist .venv (
+  echo Creating Python 3.12 virtual environment...
+  py -3.12 -m venv .venv
+  if errorlevel 1 goto :fail
+)
+
+echo Installing dependencies...
+.venv\Scripts\python.exe -m pip install --upgrade pip
+if errorlevel 1 goto :fail
+.venv\Scripts\python.exe -m pip install --only-binary=:all: -r requirements.txt
+if errorlevel 1 goto :fail
+
+echo.
+echo Running FAST analysis...
+.venv\Scripts\python.exe run_tawam_journal_reanalysis.py --bootstrap 2000
+if errorlevel 1 goto :fail
+
+echo.
+echo ================================================================
+echo FAST RUN COMPLETE. If the Cox sanity checks pass, run
+
+echo RUN_TAWAM_ANALYSIS.bat for the 10000-bootstrap journal run.
+echo ================================================================
 pause
+exit /b 0
+
+:fail
+echo.
+echo ANALYSIS FAILED. Copy the full error text and send it to ChatGPT.
+pause
+exit /b 1

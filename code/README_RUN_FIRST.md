@@ -15,17 +15,18 @@ The XGBoost configuration is fixed in the script and intentionally conservative 
 ## Recommended system
 
 - Windows 10/11
-- Python 3.11 or 3.12 (64-bit)
+- **Python 3.12 (64-bit)**. The launchers now explicitly use Python 3.12 to avoid source-build failures on Python 3.14.
 - Internet access is needed only the first time, to install Python packages.
 
 ## Easiest way to run
 
 1. Extract the ZIP to a normal local folder, for example:
    `D:\Hem\Tawam_Reanalysis_v1`
-2. Double-click `RUN_TAWAM_ANALYSIS.bat`.
-3. The script creates its own `.venv`, installs pinned dependencies, and runs 10,000 patient-bootstrap resamples.
-4. When it says **COMPLETE**, open the `results` folder.
-5. Zip the entire `results` folder and upload it back to ChatGPT.
+2. Confirm Python 3.12 is installed by opening PowerShell and running `py -0p`. If it is not listed, install 64-bit Python 3.12 first.
+3. Double-click `RUN_TAWAM_ANALYSIS.bat`.
+4. The script creates its own Python-3.12 `.venv`, installs pinned binary dependencies, and runs 10,000 patient-bootstrap resamples.
+5. When it says **COMPLETE**, open the `results` folder.
+6. Zip the entire `results` folder and upload it back to ChatGPT.
 
 If the full run is slow, double-click `RUN_TAWAM_ANALYSIS_FAST.bat` first. It uses 2,000 bootstrap resamples as a smoke test. For the manuscript, please run the full 10,000-resample version afterward.
 
@@ -69,3 +70,8 @@ The verified Cox fold C-indices should be approximately:
 `0.750, 0.803, 0.801, 0.795, 0.832`
 
 Small floating-point differences are acceptable. If the Cox values differ materially, stop and send the results/error back before using the XGBoost outputs.
+
+
+## Python 3.14 note
+
+Do not run this package under Python 3.14. The pinned pandas 2.2.3 dependency may not have a compatible Windows wheel there, which makes pip attempt a local source build and request Microsoft Visual Studio build tools. The v1.1 BAT files deliberately require Python 3.12 and use `--only-binary=:all:` so an unsupported source build fails early rather than partially installing the environment.

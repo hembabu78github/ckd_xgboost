@@ -1,0 +1,17 @@
+{
+  "python": "3.12.10 (tags/v3.12.10:0cc8128, Apr  8 2025, 12:21:36) [MSC v.1943 64 bit (AMD64)]",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "numpy": "2.3.5",
+  "pandas": "2.2.3",
+  "scipy": "1.17.0",
+  "scikit_learn": "1.8.0",
+  "statsmodels": "0.14.6",
+  "xgboost": "3.1.3",
+  "matplotlib": "3.10.8",
+  "input_file": "tawam_analytic_cohort_v1.csv",
+  "input_sha256": "8dcdd9bc4a20586827f94227100cf95af05c7aa2dd32baa80facc203807c8c53",
+  "n_subjects": 485,
+  "n_events": 56,
+  "n_censored": 429,
+  "bootstrap_resamples": 10000
+}

@@ -3,47 +3,53 @@ setlocal
 cd /d "%~dp0"
 
 echo ================================================================
-echo Tawam Cox / XGBoost-Cox journal reanalysis
+echo Tawam Cox / XGBoost-Cox journal reanalysis - FULL RUN
+echo Requires Python 3.12 (64-bit)
 echo ================================================================
 
-where python >nul 2>nul
+py -3.12 -c "import sys; print(sys.version)" >nul 2>nul
 if errorlevel 1 (
-  echo ERROR: Python was not found on PATH.
-  echo Install Python 3.11 or 3.12 from python.org, select "Add Python to PATH",
-  echo then run this file again.
+  echo ERROR: Python 3.12 was not found.
+  echo Install 64-bit Python 3.12, then run this BAT again.
+  echo Check installed versions with: py -0p
   pause
   exit /b 1
 )
 
+if exist .venv (
+  .venv\Scripts\python.exe -c "import sys; raise SystemExit(0 if sys.version_info[:2]==(3,12) else 1)" >nul 2>nul
+  if errorlevel 1 (
+    echo Removing old virtual environment created with a different Python version...
+    rmdir /s /q .venv
+  )
+)
+
 if not exist .venv (
-  echo Creating virtual environment...
-  python -m venv .venv
+  echo Creating Python 3.12 virtual environment...
+  py -3.12 -m venv .venv
   if errorlevel 1 goto :fail
 )
 
-call .venv\Scripts\activate.bat
+echo Installing dependencies...
+.venv\Scripts\python.exe -m pip install --upgrade pip
 if errorlevel 1 goto :fail
-
-python -m pip install --upgrade pip
-if errorlevel 1 goto :fail
-
-python -m pip install -r requirements.txt
+.venv\Scripts\python.exe -m pip install --only-binary=:all: -r requirements.txt
 if errorlevel 1 goto :fail
 
 echo.
-echo Running analysis. This can take several minutes because bootstrap CIs use 10,000 resamples.
-python run_tawam_journal_reanalysis.py --bootstrap 10000
+echo Running full analysis. Bootstrap CIs use 10000 resamples.
+.venv\Scripts\python.exe run_tawam_journal_reanalysis.py --bootstrap 10000
 if errorlevel 1 goto :fail
 
 echo.
 echo ================================================================
-echo COMPLETE. Please zip the RESULTS folder and upload it to ChatGPT.
+echo COMPLETE. Zip the RESULTS folder and upload it to ChatGPT.
 echo ================================================================
 pause
 exit /b 0
 
 :fail
 echo.
-echo ANALYSIS FAILED. Please copy the full error text or take a screenshot and send it to ChatGPT.
+echo ANALYSIS FAILED. Copy the full error text and send it to ChatGPT.
 pause
 exit /b 1
